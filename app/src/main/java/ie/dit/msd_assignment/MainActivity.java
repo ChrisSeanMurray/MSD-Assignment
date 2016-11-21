@@ -61,6 +61,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             v_details.setText("");
             v_venue.setText("");
         }
+        if(v.getId()==cancel.getId()){
+            finish();
+
+        }
 
 
     }
