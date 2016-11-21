@@ -10,8 +10,54 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="ie.dit.msd_assignment.MainActivity">
 
-    <TextView
+    <EditText
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="18dp"
+        android:id="@+id/arrowCount"
+        android:text="no. Arrows"
+        android:layout_width="250px" />
+
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:inputType="textPersonName"
+        android:text="Venue"
+        android:ems="10"
+        android:id="@+id/venue"
+        android:layout_alignBaseline="@+id/editText"
+        android:layout_alignBottom="@+id/editText"
+        android:layout_toEndOf="@+id/editText"
+        android:layout_marginStart="76dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text|textAutoCorrect|textMultiLine"
+        android:text="Details"
+        android:ems="10"
+        android:layout_below="@+id/editText"
+        android:layout_alignParentStart="true"
+        android:id="@+id/journalDetails"
+        android:singleLine="false" />
+
+    <Button
+        android:text="Save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/buttonSave" />
+
+    <Button
+        android:text="Cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/buttonCancel" />
+
 </RelativeLayout>
