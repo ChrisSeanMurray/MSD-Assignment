@@ -24,10 +24,10 @@ public class JournalDBManager {
 
     //
     private static final String DATABASE_CREATE =
-            "create table Tasks (_id integer primary key autoincrement, " +
+            "create table Entries (_id integer primary key autoincrement, " +
                     "arrow_count number not null," +
                     "date text not null, "  +
-                    "venue text not null" +
+                    "venue text not null," +
                     "journal_details text not null);";
 
     private final Context context;

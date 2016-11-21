@@ -10,40 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="ie.dit.msd_assignment.MainActivity">
 
-    <EditText
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="18dp"
-        android:id="@+id/arrowCount"
-        android:text="no. Arrows"
-        android:layout_width="250px" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Venue"
-        android:ems="10"
-        android:id="@+id/venue"
-        android:layout_alignBaseline="@+id/editText"
-        android:layout_alignBottom="@+id/editText"
-        android:layout_toEndOf="@+id/editText"
-        android:layout_marginStart="76dp" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="text|textAutoCorrect|textMultiLine"
-        android:text="Details"
-        android:ems="10"
-        android:layout_below="@+id/editText"
-        android:layout_alignParentStart="true"
-        android:id="@+id/journalDetails"
-        android:singleLine="false" />
-
     <Button
         android:text="Save"
         android:layout_width="wrap_content"
@@ -59,5 +25,37 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:id="@+id/buttonCancel" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:hint="Venue"
+        android:ems="10"
+        android:id="@+id/venue"
+        android:layout_below="@+id/arrowCount"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:layout_marginTop="16dp"
+        android:id="@+id/arrowCount"
+        android:hint="Arrow Count"
+        android:layout_width="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/venue" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text|textAutoCorrect|textMultiLine"
+        android:hint="Details"
+        android:ems="10"
+        android:id="@+id/journalDetails"
+        android:singleLine="false"
+        android:layout_below="@+id/venue"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
