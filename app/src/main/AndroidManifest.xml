@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".journalEntriesList" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".EntryViewer"></activity>
     </application>
 
 </manifest>

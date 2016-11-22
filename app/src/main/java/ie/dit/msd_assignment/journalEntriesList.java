@@ -1,8 +1,11 @@
 package ie.dit.msd_assignment;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 public class journalEntriesList extends ListActivity {
@@ -32,5 +35,20 @@ public class journalEntriesList extends ListActivity {
         dbm.close();
 
 
+    }
+
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id){
+        c.moveToPosition(position);
+        String arrows = Integer.toString(c.getInt(1));
+        String venue = c.getString(3);
+        String details = c.getString(4);
+
+        Intent i = new Intent(this, EntryViewer.class);
+        i.putExtra("arrows", arrows);
+        i.putExtra("venue", venue);
+        i.putExtra("details", details);
+        startActivity(i);
     }
 }
