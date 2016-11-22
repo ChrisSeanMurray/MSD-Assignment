@@ -42,6 +42,7 @@ public class journalEntriesList extends ListActivity {
     public void onListItemClick(ListView l, View v, int position, long id){
         c.moveToPosition(position);
         String arrows = Integer.toString(c.getInt(1));
+        String date = c.getString(2);
         String venue = c.getString(3);
         String details = c.getString(4);
 
@@ -49,6 +50,8 @@ public class journalEntriesList extends ListActivity {
         i.putExtra("arrows", arrows);
         i.putExtra("venue", venue);
         i.putExtra("details", details);
+        i.putExtra("date", date);
+
         startActivity(i);
     }
 }

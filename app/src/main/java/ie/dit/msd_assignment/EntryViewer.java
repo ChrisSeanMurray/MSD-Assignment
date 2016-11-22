@@ -24,5 +24,7 @@ public class EntryViewer extends AppCompatActivity {
         arrowText.setText("Arrow count : "+b.getString("arrows"));
         venueText.setText("Venue : " + b.getString("venue"));
         detailsText.setText(b.getString("details"));
+
+        setTitle(b.getString("date"));
     }
 }

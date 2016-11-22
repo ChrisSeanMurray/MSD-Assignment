@@ -17,7 +17,9 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="45dp"
-        android:id="@+id/arrowText" />
+        android:id="@+id/arrowText"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="20sp" />
 
     <TextView
         android:text="TextView"
@@ -26,7 +28,9 @@
         android:layout_below="@+id/arrowText"
         android:layout_alignStart="@+id/arrowText"
         android:layout_marginTop="20dp"
-        android:id="@+id/venueText" />
+        android:id="@+id/venueText"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="20sp" />
 
     <TextView
         android:text="TextView"
@@ -35,5 +39,7 @@
         android:layout_below="@+id/venueText"
         android:layout_marginTop="43dp"
         android:id="@+id/detailsText"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="18sp" />
 </RelativeLayout>
