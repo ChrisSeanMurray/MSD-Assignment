@@ -41,17 +41,20 @@ public class journalEntriesList extends ListActivity {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id){
         c.moveToPosition(position);
-        String arrows = Integer.toString(c.getInt(1));
+        int entryID = c.getInt(0);
+        int arrows = c.getInt(1);
         String date = c.getString(2);
         String venue = c.getString(3);
         String details = c.getString(4);
 
         Intent i = new Intent(this, EntryViewer.class);
+        i.putExtra("id", entryID);
         i.putExtra("arrows", arrows);
         i.putExtra("venue", venue);
         i.putExtra("details", details);
         i.putExtra("date", date);
 
         startActivity(i);
+        finish();
     }
 }

@@ -17,7 +17,8 @@
         </activity>
         <activity android:name=".journalEntriesList" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".EntryViewer"></activity>
+        <activity android:name=".EntryViewer" />
+        <activity android:name=".EditEntry"></activity>
     </application>
 
 </manifest>

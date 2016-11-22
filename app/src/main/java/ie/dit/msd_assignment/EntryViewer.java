@@ -1,14 +1,18 @@
 package ie.dit.msd_assignment;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
-public class EntryViewer extends AppCompatActivity {
+public class EntryViewer extends AppCompatActivity implements View.OnClickListener {
     TextView arrowText;
     TextView venueText;
     TextView detailsText;
     Bundle b;
+    Button edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,13 +22,23 @@ public class EntryViewer extends AppCompatActivity {
         arrowText = (TextView)findViewById(R.id.arrowText);
         venueText = (TextView)findViewById(R.id.venueText);
         detailsText = (TextView)findViewById(R.id.detailsText);
+        edit = (Button)findViewById(R.id.buttonEdit);
+        edit.setOnClickListener(this);
 
         b = this.getIntent().getExtras();
 
-        arrowText.setText("Arrow count : "+b.getString("arrows"));
+        arrowText.setText("Arrow count : "+b.getInt("arrows"));
         venueText.setText("Venue : " + b.getString("venue"));
         detailsText.setText(b.getString("details"));
 
         setTitle(b.getString("date"));
+    }
+
+    public void onClick(View v){
+        Intent i = new Intent(this,EditEntry.class);
+        i.putExtra("id", b.getInt("id"));
+        startActivity(i);
+        finish();
+
     }
 }
