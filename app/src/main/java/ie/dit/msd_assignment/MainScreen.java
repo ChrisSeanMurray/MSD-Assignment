@@ -23,7 +23,7 @@ public class MainScreen extends AppCompatActivity implements View.OnClickListene
 
     public void onClick(View v){
         if(v.getId()==allEntries.getId()){
-            Intent i = new Intent(this, journalEntriesList.class);
+            Intent i = new Intent(this, JournalEntriesList.class);
             startActivity(i);
         }
         if(v.getId()==newEntry.getId()){

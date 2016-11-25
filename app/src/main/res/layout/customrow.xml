@@ -3,14 +3,21 @@
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rowImage"/>
 
     <TextView
+        android:paddingTop="25px"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/rowDate"
         android:textSize="20sp"
         />
     <TextView
+        android:paddingLeft="30px"
+        android:paddingTop="25px"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/rowVenue"

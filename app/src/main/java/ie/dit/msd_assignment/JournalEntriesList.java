@@ -1,17 +1,49 @@
 package ie.dit.msd_assignment;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CursorAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
-public class journalEntriesList extends ListActivity {
+public class JournalEntriesList extends ListActivity {
     JournalDBManager dbm;
     Cursor c;
-    SimpleCursorAdapter myAdapter;
+    MyCursorAdapter myAdapter;
+
+    public class MyCursorAdapter extends CursorAdapter{
+
+        public MyCursorAdapter(Context context, Cursor c) {
+            super(context, c);
+        }
+        @Override
+        public void bindView(View view, Context context, Cursor cursor) {
+
+            TextView date = (TextView)view.findViewById(R.id.rowDate);
+            TextView venue = (TextView)view.findViewById(R.id.rowVenue);
+            ImageView rowImage = (ImageView)view.findViewById(R.id.rowImage);
+            date.setText(cursor.getString(2));
+            venue.setText(cursor.getString(3));
+            rowImage.setImageResource(R.drawable.target);
+
+        }
+
+        @Override
+        public View newView(Context context, Cursor cursor, ViewGroup parent) {
+            LayoutInflater inflater = LayoutInflater.from(context);
+            View v = inflater.inflate(R.layout.customrow, parent, false);
+            bindView(v, context, cursor);
+            return v;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +60,8 @@ public class journalEntriesList extends ListActivity {
         //queriying all entries in the database to a cursor
         c = dbm.getAllEntries();
 
-        myAdapter = new SimpleCursorAdapter(this,R.layout.customrow, c,columns, ids);
+        //myAdapter = new SimpleCursorAdapter(this,R.layout.customrow, c,columns, ids);
+        myAdapter = new MyCursorAdapter(this, c);
         setListAdapter(myAdapter);
 
         //closing database connection

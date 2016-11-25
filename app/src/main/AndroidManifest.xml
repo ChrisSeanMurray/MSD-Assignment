@@ -15,7 +15,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".journalEntriesList" />
+        <activity android:name=".JournalEntriesList" />
         <activity android:name=".MainActivity" />
         <activity android:name=".EntryViewer" />
         <activity android:name=".EditEntry"></activity>
