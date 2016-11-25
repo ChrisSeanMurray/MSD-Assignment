@@ -7,26 +7,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
     tools:context="ie.dit.msd_assignment.MainActivity">
 
-    <Button
-        android:text="Save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/buttonSave" />
-
-    <Button
-        android:text="Cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/buttonCancel" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -37,18 +22,6 @@
         android:id="@+id/venue"
         android:layout_below="@+id/arrowCount"
         android:layout_centerHorizontal="true" />
-
-    <EditText
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:layout_marginTop="50dp"
-        android:id="@+id/arrowCount"
-        android:hint="Arrow Count"
-        android:layout_width="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/venue"
-        android:layout_below="@+id/my_toolbar"/>
 
     <EditText
         android:layout_width="match_parent"
@@ -67,6 +40,17 @@
         android:layout_height="?attr/actionBarSize"
         android:layout_width="match_parent"
         android:background="?attr/colorPrimaryDark"/>
+
+    <EditText
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:layout_marginTop="18dp"
+        android:id="@+id/arrowCount"
+        android:hint="Arrow Count"
+        android:layout_width="wrap_content"
+        android:layout_below="@+id/my_toolbar"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>
 

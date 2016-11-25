@@ -18,8 +18,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText v_arrows;
     EditText v_venue;
     EditText v_details;
-    Button save;
-    Button cancel;
     JournalDBManager dbm;
     Calendar c;
 
@@ -36,11 +34,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         v_venue = (EditText)findViewById(R.id.venue);
         v_details = (EditText)findViewById(R.id.journalDetails);
 
-        //assigning the button views to their corresponding elements and setting their listeners
-        save = (Button)findViewById(R.id.buttonSave);
-        save.setOnClickListener(this);
-        cancel = (Button)findViewById(R.id.buttonCancel);
-        cancel.setOnClickListener(this);
 
         //seting up db connection
         dbm = new JournalDBManager(this);
@@ -59,24 +52,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            // action with ID action_refresh was selected
+            // action with ID action_save was selected
             case R.id.action_save:
-                int arrowCount = Integer.parseInt(v_arrows.getText().toString());
-                String venue = v_venue.getText().toString();
-                String entry = v_details.getText().toString();
 
-                //calling system date
-                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-                String date = df.format(c.getTime());
+                if(v_venue.getText().toString().length() <= 0 || v_arrows.getText().toString().length()<= 0 || v_details.getText().toString().length() <= 0){
+                    Toast.makeText(this, "You have left one of the fields empty", Toast.LENGTH_SHORT).show();
+                    break;
+                }
+                else {
+                    int arrowCount = Integer.parseInt(v_arrows.getText().toString());
+                    String venue = v_venue.getText().toString();
+                    String entry = v_details.getText().toString();
 
-                dbm.open();
-                dbm.insertEntry(arrowCount,date, venue, entry);
-                dbm.close();
-                Toast.makeText(this, "Successful insertion", Toast.LENGTH_SHORT).show();
-                v_arrows.setText("");
-                v_details.setText("");
-                v_venue.setText("");
-                break;
+
+                    //calling system date
+                    SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                    String date = df.format(c.getTime());
+
+                    dbm.open();
+                    dbm.insertEntry(arrowCount, date, venue, entry);
+                    dbm.close();
+                    Toast.makeText(this, "Successful insertion", Toast.LENGTH_SHORT).show();
+                    v_arrows.setText("");
+                    v_details.setText("");
+                    v_venue.setText("");
+                    break;
+                }
             // action with ID action_settings was selected
             case R.id.action_settings:
                 Toast.makeText(this, "Settings selected", Toast.LENGTH_SHORT).show();
@@ -92,29 +93,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return true;
     }
 
-    public void onClick(View v){
-        if(v.getId() == save.getId()){
-            int arrowCount = Integer.parseInt(v_arrows.getText().toString());
-            String venue = v_venue.getText().toString();
-            String entry = v_details.getText().toString();
-
-            //calling system date
-            SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
-            String date = df.format(c.getTime());
-
-            dbm.open();
-            dbm.insertEntry(arrowCount,date, venue, entry);
-            dbm.close();
-            Toast.makeText(this, "Successful insertion", Toast.LENGTH_SHORT).show();
-            v_arrows.setText("");
-            v_details.setText("");
-            v_venue.setText("");
-        }
-        if(v.getId()==cancel.getId()){
-            finish();
-
-        }
-
-
+    public void onClick(View v) {
     }
 }
