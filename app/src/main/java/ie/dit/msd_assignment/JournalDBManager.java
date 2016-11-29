@@ -16,11 +16,12 @@ public class JournalDBManager {
     public static final String KEY_DATE 	= "date";
     public static final String KEY_VENUE = "venue";
     public static final String KEY_JOURNALDETAILS 	= "journal_details";
+    public static final String KEY_IMAGE = "image";
 
 
     private static final String DATABASE_NAME 	= "Journal";
     private static final String DATABASE_TABLE 	= "Entries";
-    private static final int DATABASE_VERSION 	= 1;
+    private static final int DATABASE_VERSION 	= 2;
 
     //
     private static final String DATABASE_CREATE =
@@ -28,7 +29,8 @@ public class JournalDBManager {
                     "arrow_count number not null," +
                     "date text not null, "  +
                     "venue text not null," +
-                    "journal_details text not null);";
+                    "journal_details text not null,"+
+                    "image blob);";
 
     private final Context context;
     private DatabaseHelper DBHelper;
@@ -65,8 +67,10 @@ public class JournalDBManager {
         public void onUpgrade(SQLiteDatabase db, int oldVersion,
                               int newVersion)
         {
-            // dB structure change..
-
+            String upgradeQuery = "ALTER TABLE "+DATABASE_TABLE+" ADD COLUMN image BLOB";
+            if(newVersion == 2 && oldVersion == 1) {
+                db.execSQL(upgradeQuery);
+            }
         }
     }   //
 
@@ -81,13 +85,14 @@ public class JournalDBManager {
         DBHelper.close();
     }
 
-    public long insertEntry(int arrowCount, String date, String venue, String details)
+    public long insertEntry(int arrowCount, String date, String venue, String details, byte[] image)
     {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_ARROWCOUNT, arrowCount);
         initialValues.put(KEY_DATE, date);
         initialValues.put(KEY_VENUE, venue);
         initialValues.put(KEY_JOURNALDETAILS, details);
+        initialValues.put(KEY_IMAGE, image);
         return db.insert(DATABASE_TABLE, null, initialValues);
     }
 
@@ -106,7 +111,8 @@ public class JournalDBManager {
                                 KEY_ARROWCOUNT,
                                 KEY_DATE,
                                 KEY_VENUE,
-                                KEY_JOURNALDETAILS
+                                KEY_JOURNALDETAILS,
+                                KEY_IMAGE
                         },
                 null, null, null, null, null);
     }
@@ -120,7 +126,8 @@ public class JournalDBManager {
                                         KEY_ARROWCOUNT,
                                         KEY_DATE,
                                         KEY_VENUE,
-                                        KEY_JOURNALDETAILS
+                                        KEY_JOURNALDETAILS,
+                                        KEY_IMAGE
                                 },
                         KEY_ROWID + "=" + rowId,  null, null, null, null, null);
 

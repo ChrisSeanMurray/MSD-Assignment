@@ -4,6 +4,7 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ public class JournalEntriesList extends ListActivity {
     JournalDBManager dbm;
     Cursor c;
     MyCursorAdapter myAdapter;
+    byte[] image;
 
     public class MyCursorAdapter extends CursorAdapter{
 
@@ -31,7 +33,7 @@ public class JournalEntriesList extends ListActivity {
             ImageView rowImage = (ImageView)view.findViewById(R.id.rowImage);
             date.setText(cursor.getString(2));
             venue.setText(cursor.getString(3));
-            rowImage.setImageResource(R.drawable.target);
+                rowImage.setImageResource(R.drawable.target);
 
         }
 
@@ -78,6 +80,7 @@ public class JournalEntriesList extends ListActivity {
         String date = c.getString(2);
         String venue = c.getString(3);
         String details = c.getString(4);
+        byte[] image = c.getBlob(5);
 
         Intent i = new Intent(this, EntryViewer.class);
         i.putExtra("id", entryID);
@@ -85,6 +88,7 @@ public class JournalEntriesList extends ListActivity {
         i.putExtra("venue", venue);
         i.putExtra("details", details);
         i.putExtra("date", date);
+        i.putExtra("image", image);
 
         startActivity(i);
         finish();

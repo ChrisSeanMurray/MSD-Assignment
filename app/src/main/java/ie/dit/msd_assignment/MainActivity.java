@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
@@ -34,6 +35,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -44,9 +47,12 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
     JournalDBManager dbm;
     Calendar c;
     Button image;
+    Button gallery;
     ImageView mImageView;
+    byte[] imageStore;
 
     private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int SELECT_PICTURE = 2;
 
 
 
@@ -63,6 +69,9 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.CAMERA}, 1);
 
         }
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 2);
+        }
 
 
         //assigning the edittext views to their corresponding elements
@@ -71,6 +80,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         v_details = (EditText)findViewById(R.id.journalDetails);
         image = (Button)findViewById(R.id.imageButton);
         image.setOnClickListener(this);
+        gallery = (Button)findViewById(R.id.gallery);
+        gallery.setOnClickListener(this);
         mImageView = (ImageView)findViewById(R.id.mImageView);
 
 
@@ -104,17 +115,19 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
                     String entry = v_details.getText().toString();
 
 
+
                     //calling system date
                     SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
                     String date = df.format(c.getTime());
 
                     dbm.open();
-                    dbm.insertEntry(arrowCount, date, venue, entry);
+                    dbm.insertEntry(arrowCount, date, venue, entry, imageStore);
                     dbm.close();
                     Toast.makeText(this, "Successful insertion", Toast.LENGTH_SHORT).show();
                     v_arrows.setText("");
                     v_details.setText("");
                     v_venue.setText("");
+                    mImageView.setImageDrawable(getDrawable(R.drawable.target));
                     break;
                 }
             // action with ID action_settings was selected
@@ -135,6 +148,8 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             case R.id.imageButton:
                 doCameraStuff();
                 break;
+            case R.id.gallery:
+                doGalleryStuff();
             default:
                 break;
         }
@@ -142,21 +157,46 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
 
     public void doCameraStuff(){
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        Toast.makeText(this, "DEBUGGING", Toast.LENGTH_SHORT).show();
-        //if (intent.resolveActivity(getPackageManager()) != null) {
-            Toast.makeText(this, "starting cam intent", Toast.LENGTH_SHORT).show();
+        if (intent.resolveActivity(getPackageManager()) != null) {
             startActivityForResult(intent, REQUEST_IMAGE_CAPTURE);
-        //}
+        }
 
     }
+
+    public void doGalleryStuff(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,
+                "Select Picture"), SELECT_PICTURE);
+        }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
             if (requestCode == REQUEST_IMAGE_CAPTURE) {
-                Toast.makeText(this, "cam intent successful", Toast.LENGTH_SHORT).show();
                 Bundle extras = data.getExtras();
                 mImageView.setImageBitmap((Bitmap) extras.get("data"));
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                Bitmap bitmap = ((Bitmap) extras.get("data"));
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 0, stream);
+                imageStore=stream.toByteArray();
             }
+            else if(requestCode == SELECT_PICTURE){
+//                Uri selectedImageUri = data.getData();
+//                bitToByte(getPath(selectedImageUri));
+                try {
+                    final Uri imageUri = data.getData();
+                    final InputStream imageStream = getContentResolver().openInputStream(imageUri);
+                    final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
+                    mImageView.setImageBitmap(selectedImage);
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    selectedImage.compress(Bitmap.CompressFormat.JPEG, 0, stream);
+                    imageStore=stream.toByteArray();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
+
         }
     }
 

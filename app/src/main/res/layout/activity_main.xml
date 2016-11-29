@@ -52,15 +52,6 @@
         android:layout_below="@+id/my_toolbar"
         android:layout_centerHorizontal="true"/>
 
-    <Button
-        android:text="Add picture"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="12dp"
-        android:id="@+id/imageButton" />
-
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -69,6 +60,22 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="69dp"
         android:id="@+id/mImageView" />
+
+    <Button
+        android:text="Take picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Add picture from Gallery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/gallery" />
 
 </RelativeLayout>
 
